@@ -18,6 +18,8 @@ public class BusinessExceptionHandler implements ExceptionMapper<BusinessExcepti
 
 	@Override
 	public Response toResponse(BusinessException businessException) {
+
+		System.out.println(businessException);
 		return Response.status(businessException.getStatus()).entity(new ErrorBody(businessException))
 				.type(MediaType.APPLICATION_JSON).build();
 	}

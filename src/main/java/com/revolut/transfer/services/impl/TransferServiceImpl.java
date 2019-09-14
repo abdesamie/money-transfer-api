@@ -46,7 +46,7 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	private void assertCorrectAmount(TransferDto transfer) {
-		if (transfer.getAmount().doubleValue() < 0)
+		if (transfer.getAmount().doubleValue() <= 0)
 			throw new BusinessException("Invalid Amount", Status.NOT_ACCEPTABLE);
 	}
 

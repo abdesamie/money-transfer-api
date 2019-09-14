@@ -1,0 +1,191 @@
+swagger : "2.0"
+info:
+  version: 1.0.0
+  title: Money transfer
+  description: RESTful API (including data model and the backing implementation for money transfers between accounts.
+  termsOfService: terms
+  contact:
+    name: Abdessamie sohail
+    url: https://www.linkedin.com/in/abdessamie-sohail/
+    email: souhail.mail@gmail.com
+  license:
+    name: MIT
+    url: http://localhost:8080
+host : localhost:8080
+basePath: /api/v1
+schemes: 
+ - http
+paths:
+  /accounts:
+    get :
+      tags:
+      - "Account"
+      summary: "Get all accounts"
+      operationId: "findAccounts"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: "successful operation"
+        '400':
+          description: "Bad request"        
+    post:
+      tags:
+      - "Account"
+      summary: "Add an account"
+      description: "add an account"
+      parameters:
+      - name : "account"
+        in : body
+        schema :
+          $ref : "#/definitions/account"
+      responses:
+        '200':
+          description: OK  
+        '406':
+          description: "Not acceptable"
+        '400':
+          description: "Bad request"        
+  /accounts/{accountId} :
+    get :
+      tags:
+      - "Account"
+      summary: "Get  account by id number"
+      operationId: "findAccountById"
+      produces:
+      - "application/json"
+      parameters:
+      - name : "accountId"
+        in : path
+        required : true
+        type : integer
+      responses:
+        '200':
+          description: "successful operation"
+        '404':  
+          description: "Account Not Found"
+        
+    delete:
+      tags:
+      - "Account"
+      summary: "Delete  account by id number"
+      description: "Delete  account by id number"
+      parameters:
+      - name : "accountId"
+        in : path
+        required : true
+        type : integer
+      responses:
+        '200':
+          description: "successful operation"
+        '404':  
+          description: "Account Not Found"
+  /clients:
+    get :
+      tags:
+      - "Client"
+      summary: "Get all clients"
+      operationId: "findClients"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+    post:
+      tags:
+      - "Client"
+      summary: "Add an client"
+      description: "add a client"
+      parameters:
+      - name : "client"
+        in : body
+        schema :
+          $ref : "#/definitions/client"
+      responses:
+        200:
+          description: OK
+  /clients/{clientId} :
+    get :
+      tags:
+      - "Client"
+      summary: "Get  client by id "
+      operationId: "findClientById"
+      produces:
+      - "application/json"
+      parameters:
+      - name : "clientId"
+        in : path
+        required : true
+        type : integer
+      responses:
+        '200':
+          description: "successful operation"
+        '404':  
+          description: "Client Not Found"
+    delete:
+      tags:
+      - "Client"
+      summary: "Delete  client by id number"
+      description: "Delete  client by id number"
+      parameters:
+      - name : "clientId"
+        in : path
+        required : true
+        type : integer
+      responses:
+        '200':
+          description: "successful operation"
+        '404':  
+          description: "Client Not Found"
+          
+          
+  /transfers:
+    post:
+      tags:
+      - "Transfer"
+      summary: "execute a transfer"
+      description: "execute a transfer"
+      parameters:
+      - name : "transfers"
+        in: body
+        schema:
+          $ref : "#/definitions/transfer"
+      responses:
+        '200':
+          description: OK
+        '404':  
+          description: "Sender/Receiver Account Not Found"
+        '400':
+          description: "Bad request"    
+        '406':
+          description : "Not Acceptable (insufficient funds,same account, incorrect amount"
+definitions:
+  account:
+    type: object
+    properties:
+      id:
+        type: integer
+      iban:
+        type: string
+        example: GB46BUKB20041538560009
+      amount:
+        type: number
+  client :
+    type: object
+    properties:
+      id:
+        type: integer
+      firstname:
+        type: string
+      lastname:
+        type: string
+  transfer:
+    type: object
+    properties:
+      idSender: 
+        type: integer
+      idReceiver :
+        type: integer
+      amount:
+        type: number
+      

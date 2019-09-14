@@ -5,12 +5,12 @@
 	<groupId>com.revolut</groupId>
 	<artifactId>money-transfer-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>money-transfer-api Maven Webapp</name>
+	<name>money-transfer-apI</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<jersey.version>2.27</jersey.version>
-		<jetty.version>9.3.3.v20150827</jetty.version>
+		<jetty.version>9.4.12.v20180830</jetty.version>
 		<jooq.version>3.12.1</jooq.version>
 		<h2.driver>org.h2.Driver</h2.driver>
 		<h2.url>jdbc:h2:~/revolut</h2.url>

@@ -22,6 +22,7 @@ public class MappingExceptionHandler implements ExceptionMapper<JsonMappingExcep
 		ErrorBody errorBody = new ErrorBody();
 		errorBody.setMessage(jsonMappingException.getMessage());
 		errorBody.setStatus(Status.BAD_REQUEST.getStatusCode());
+		System.out.println(jsonMappingException);
 		return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(errorBody).build();
 	}
 

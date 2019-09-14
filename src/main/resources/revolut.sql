@@ -15,7 +15,7 @@ CREATE TABLE Account
 	amount DOUBLE NOT NULL, 
 	creation_date TIMESTAMP,
 	id_client INT,
-	FOREIGN KEY(id_client) REFERENCES Client(id)
+	FOREIGN KEY(id_client) REFERENCES Client(id) ON DELETE CASCADE
 );
 
 
