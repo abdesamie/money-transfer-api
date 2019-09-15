@@ -3,6 +3,8 @@ package com.revolut.transfer.exceptions;
 import javax.ws.rs.core.Response.Status;
 
 public class BusinessException extends RuntimeException {
+	
+	public BusinessException() {}
 
 	/**
 	 * 

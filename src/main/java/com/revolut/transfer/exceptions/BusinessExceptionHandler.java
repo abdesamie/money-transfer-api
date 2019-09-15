@@ -5,6 +5,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import com.google.inject.Singleton;
+
 /**
  * Translator of any kind of business rules violations of any exception
  * unrelated to technical issues it maps the exception to human readble response
@@ -14,7 +16,10 @@ import javax.ws.rs.ext.Provider;
  *
  */
 @Provider
+@Singleton
 public class BusinessExceptionHandler implements ExceptionMapper<BusinessException> {
+	
+	
 
 	@Override
 	public Response toResponse(BusinessException businessException) {
