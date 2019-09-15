@@ -36,6 +36,7 @@ public class Application {
 
 		final ServletHolder servlet = handler.addServlet(ServletContainer.class, "/*");
 		servlet.setInitParameter("jersey.config.server.provider.packages", API_CONTROLLERS_PACKAGE);
+		servlet.setInitParameter("javax.ws.rs.Application", "com.revolut.transfer.configuration.ApplicationConfiguration");
 		return handler;
 	}
 

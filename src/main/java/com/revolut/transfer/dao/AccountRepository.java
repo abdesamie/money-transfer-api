@@ -1,6 +1,5 @@
 package com.revolut.transfer.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.revolut.transfer.model.AccountDto;
@@ -8,7 +7,7 @@ import com.revolut.transfer.utils.LockDecorator;
 
 public interface AccountRepository {
 
-	List<AccountDto> findAll() throws SQLException;
+	List<AccountDto> findAll();
 
 	AccountDto findById(int id);
 

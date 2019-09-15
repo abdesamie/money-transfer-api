@@ -5,8 +5,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.revolut.transfer.utils.PropertiesUtility;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import com.revolut.transfer.utils.PropertiesUtility;
+/**
+ * It gives an abstraction of the underlying data source
+ * permit to load the data source from properties file
+ * @author ABDESSAMIE
+ *
+ */
 public class DataSource {
 
 	private static DataSource datasource;
@@ -15,17 +23,23 @@ public class DataSource {
 	private final String password;
 	private final String driver;
 
-	private DataSource() throws IOException {
-		PropertiesUtility.loadProperties("h2.properties");
+	@Inject
+	public DataSource(@Named("DB_PROPERTIES_FILE") String propertiesFile) throws IOException {
+		PropertiesUtility.loadProperties(propertiesFile);
 		this.driver = PropertiesUtility.getValue("h2.driver");
 		this.url = PropertiesUtility.getValue("h2.url");
 		this.username = PropertiesUtility.getValue("h2.username");
 		this.password = PropertiesUtility.getValue("h2.password");
 	}
 
-	public static DataSource getInstance() throws IOException {
+	/**
+	 * The singleton scope now is handled by HK2
+	 * @return a singleton
+	 * @throws IOException if failed on loading properties file
+	 */
+	public static DataSource getInstance(String propertiesFile) throws IOException {
 		if (datasource == null) {
-			datasource = new DataSource();
+			datasource = new DataSource(propertiesFile);
 		}
 		return datasource;
 	}

@@ -25,10 +25,8 @@ paths:
       produces:
       - "application/json"
       responses:
-        '200':
+        200:
           description: "successful operation"
-        '400':
-          description: "Bad request"        
     post:
       tags:
       - "Account"
@@ -40,12 +38,8 @@ paths:
         schema :
           $ref : "#/definitions/account"
       responses:
-        '200':
-          description: OK  
-        '406':
-          description: "Not acceptable"
-        '400':
-          description: "Bad request"        
+        200:
+          description: OK
   /accounts/{accountId} :
     get :
       tags:
@@ -53,6 +47,7 @@ paths:
       summary: "Get  account by id number"
       operationId: "findAccountById"
       produces:
+      - "application/xml"
       - "application/json"
       parameters:
       - name : "accountId"
@@ -60,11 +55,8 @@ paths:
         required : true
         type : integer
       responses:
-        '200':
+        200:
           description: "successful operation"
-        '404':  
-          description: "Account Not Found"
-        
     delete:
       tags:
       - "Account"
@@ -76,10 +68,27 @@ paths:
         required : true
         type : integer
       responses:
-        '200':
-          description: "successful operation"
-        '404':  
-          description: "Account Not Found"
+        200:
+          description: OK
+  /accounts/{accountId}/deposit/{amount} :
+    put:
+      tags:
+      - "Account"
+      summary:  "Deposit an amount of money into an account"
+      description: "Put money into account"
+      parameters:
+      - name : "accountId"
+        in : path
+        required : true
+        type : integer
+      - name : "amount"
+        in : path
+        required : true
+        type : integer
+      responses:
+        200:
+          description: OK
+    
   /clients:
     get :
       tags:
@@ -87,6 +96,7 @@ paths:
       summary: "Get all clients"
       operationId: "findClients"
       produces:
+      - "application/xml"
       - "application/json"
       responses:
         200:
@@ -111,6 +121,7 @@ paths:
       summary: "Get  client by id "
       operationId: "findClientById"
       produces:
+      - "application/xml"
       - "application/json"
       parameters:
       - name : "clientId"
@@ -118,10 +129,8 @@ paths:
         required : true
         type : integer
       responses:
-        '200':
+        200:
           description: "successful operation"
-        '404':  
-          description: "Client Not Found"
     delete:
       tags:
       - "Client"
@@ -133,13 +142,18 @@ paths:
         required : true
         type : integer
       responses:
-        '200':
-          description: "successful operation"
-        '404':  
-          description: "Client Not Found"
-          
-          
+        200:
+          description: OK
   /transfers:
+    get:
+      tags:
+      - "Transfer"
+      summary: "Get All Transfers"
+      description:  "Get all transfers"
+      responses:
+        200:
+          description: OK
+    
     post:
       tags:
       - "Transfer"
@@ -151,14 +165,9 @@ paths:
         schema:
           $ref : "#/definitions/transfer"
       responses:
-        '200':
+        200:
           description: OK
-        '404':  
-          description: "Sender/Receiver Account Not Found"
-        '400':
-          description: "Bad request"    
-        '406':
-          description : "Not Acceptable (insufficient funds,same account, incorrect amount"
+    
 definitions:
   account:
     type: object
@@ -188,4 +197,3 @@ definitions:
         type: integer
       amount:
         type: number
-      

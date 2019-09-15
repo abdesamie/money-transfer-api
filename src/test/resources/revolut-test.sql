@@ -29,7 +29,7 @@ CREATE TABLE Transfer(
 );
 
 INSERT INTO CLIENT(first_name,last_name) VALUES ('abdessamie','sohail');
-INSERT INTO CLIENT(first_name,last_name) VALUES ('michael','sohail');
+INSERT INTO CLIENT(first_name,last_name) VALUES ('michael','kwakye');
 INSERT INTO CLIENT(first_name,last_name) VALUES ('REVOLUT','BANK');
 
 

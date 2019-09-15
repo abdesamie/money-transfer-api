@@ -1,9 +1,9 @@
 package com.revolut.transfer.ressources;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,16 +17,14 @@ import javax.ws.rs.core.Response.Status;
 
 import com.revolut.transfer.model.ClientDto;
 import com.revolut.transfer.services.ClientService;
-import com.revolut.transfer.services.impl.ClientServiceImpl;
 
 @Path("/api/v1/clients")
 public class ClientResource {
 
+	@Inject
 	private ClientService clientService;
 
-	public ClientResource() throws IOException {
-		this.clientService = new ClientServiceImpl();
-	}
+
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

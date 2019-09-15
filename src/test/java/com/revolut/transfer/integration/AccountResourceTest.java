@@ -14,7 +14,7 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
 import com.revolut.transfer.exceptions.BusinessExceptionHandler;
-import com.revolut.transfer.injections.TransferBinder;
+import com.revolut.transfer.helpers.TransferBinder;
 import com.revolut.transfer.ressources.AccountResource;
 
 public class AccountResourceTest extends JerseyTest {

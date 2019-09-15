@@ -4,9 +4,10 @@ import static com.revolut.transfer.dao.tables.Account.ACCOUNT;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.inject.Inject;
 
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -21,15 +22,17 @@ import com.revolut.transfer.utils.LockDecorator;
 
 public class AccountRepositoryImpl implements AccountRepository {
 
+	
 	private DSLContext dslContext;
 
-	public AccountRepositoryImpl() throws IOException {
-		DataSource dataSource = DataSource.getInstance();
-		dslContext = DSL.using(dataSource.getConnection());
+
+	@Inject
+	public AccountRepositoryImpl(DataSource datasource) throws IOException {
+		dslContext = DSL.using(datasource.getConnection());
 	}
 
 	@Override
-	public List<AccountDto> findAll() throws SQLException {
+	public List<AccountDto> findAll() {
 		List<AccountDto> accounts = dslContext.select(ACCOUNT.ID, ACCOUNT.IBAN, ACCOUNT.AMOUNT).from(ACCOUNT).fetch()
 				.stream().map(record -> new AccountDto(record.get(ACCOUNT.ID), record.get(ACCOUNT.IBAN),
 						BigDecimal.valueOf(record.get(ACCOUNT.AMOUNT))))
@@ -53,7 +56,6 @@ public class AccountRepositoryImpl implements AccountRepository {
 
 	@Override
 	public void delete(AccountDto account) {
-		// TODO : exception when not found
 		dslContext.delete(ACCOUNT).where(ACCOUNT.ID.eq(account.getId())).execute();
 
 	}
@@ -66,7 +68,6 @@ public class AccountRepositoryImpl implements AccountRepository {
 
 	@Override
 	public void update(AccountDto account) {
-		// TODO : exception when not found
 		dslContext.update(ACCOUNT).set(ACCOUNT.IBAN, account.getIban())
 				.set(ACCOUNT.AMOUNT, account.getAmount().doubleValue()).where(ACCOUNT.ID.eq(account.getId())).execute();
 	}

@@ -1,30 +1,27 @@
 package com.revolut.transfer.services.impl;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.ext.Provider;
 
 import com.revolut.transfer.dao.AccountRepository;
-import com.revolut.transfer.dao.impl.AccountRepositoryImpl;
 import com.revolut.transfer.exceptions.BusinessException;
 import com.revolut.transfer.model.AccountDto;
 import com.revolut.transfer.services.AccountService;
 
+@Provider
 public class AccountServiceImpl implements AccountService {
 
 	private static final String ACCOUNT_NOT_FOUND = "Account not found";
+	@Inject
 	private AccountRepository accountRepository;
 
-	public AccountServiceImpl() throws IOException {
-		accountRepository = new AccountRepositoryImpl();
-	}
-
 	@Override
-	public AccountDto findById(int id) {
+	public AccountDto findAccountById(int id) {
 		AccountDto accountDto = getAccountOrException(id);
 		return accountDto;
 	}
@@ -41,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<AccountDto> findAll() throws SQLException {
+	public List<AccountDto> findAll() {
 		return accountRepository.findAll();
 	}
 
@@ -65,9 +62,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public synchronized AccountDto deposit(int idAccount, double amount) {
-		if (amount < 0)
+		if (amount <= 0)
 			throw new BusinessException("Invalid Amount", Status.NOT_ACCEPTABLE);
-		AccountDto account = findById(idAccount);
+		AccountDto account = findAccountById(idAccount);
 		BigDecimal accountAmount = account.getAmount();
 		BigDecimal sum = accountAmount.add(BigDecimal.valueOf(amount)).setScale(2, RoundingMode.HALF_DOWN);
 		account.setAmount(sum);

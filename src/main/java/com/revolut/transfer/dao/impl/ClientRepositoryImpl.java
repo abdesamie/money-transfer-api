@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Record2;
@@ -22,8 +24,8 @@ public class ClientRepositoryImpl implements ClientRepository {
 
 	private DSLContext dslContext;
 
-	public ClientRepositoryImpl() throws IOException {
-		DataSource dataSource = DataSource.getInstance();
+	@Inject
+	public ClientRepositoryImpl(DataSource dataSource) throws IOException {
 		dslContext = DSL.using(dataSource.getConnection());
 	}
 

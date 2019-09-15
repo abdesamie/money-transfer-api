@@ -29,12 +29,12 @@ CREATE TABLE Transfer(
 );
 
 
-INSERT INTO CLIENT(first_name,last_name) VALUES ('abdessamie','sohail');
-INSERT INTO CLIENT(first_name,last_name) VALUES ('michael','sohail');
-INSERT INTO CLIENT(first_name,last_name) VALUES ('vlad','sohail');
-INSERT INTO CLIENT(first_name,last_name) VALUES ('petrovski','sohail');
-INSERT INTO CLIENT(first_name,last_name) VALUES ('jokovic','sohail');
 
+INSERT INTO CLIENT(first_name,last_name) VALUES ('michael','kwakye');
+INSERT INTO CLIENT(first_name,last_name) VALUES ('vlad','yatsenko');
+INSERT INTO CLIENT(first_name,last_name) VALUES ('nikolay','storonsky');
+INSERT INTO CLIENT(first_name,last_name) VALUES ('jokovic','sohail');
+INSERT INTO CLIENT(first_name,last_name) VALUES ('abdessamie','sohail');
 
 INSERT INTO ACCOUNT(iban,id_client,amount) VALUES ('GB46BUKB20041538290008',1,188100.25);
 INSERT INTO ACCOUNT(iban,id_client,amount) VALUES ('GB46BUKB20041538560009',2,255889.25);

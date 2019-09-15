@@ -14,6 +14,7 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
 import com.revolut.transfer.exceptions.BusinessExceptionHandler;
+import com.revolut.transfer.helpers.TransferBinder;
 import com.revolut.transfer.ressources.ClientResource;
 
 public class ClientResourceTest extends JerseyTest {
@@ -23,7 +24,8 @@ public class ClientResourceTest extends JerseyTest {
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(ClientResource.class).register(new BusinessExceptionHandler());
+		return new ResourceConfig(ClientResource.class).register(new TransferBinder())
+				.register(new BusinessExceptionHandler());
 	}
 
 	@Test

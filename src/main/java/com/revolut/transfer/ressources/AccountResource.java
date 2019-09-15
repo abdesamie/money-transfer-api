@@ -1,9 +1,8 @@
-package com.revolut.transfer.ressources;
+ package com.revolut.transfer.ressources;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,20 +18,22 @@ import javax.ws.rs.core.Response.Status;
 
 import com.revolut.transfer.model.AccountDto;
 import com.revolut.transfer.services.AccountService;
-import com.revolut.transfer.services.impl.AccountServiceImpl;
 
+/**
+ * Endpoints of all account( {@link AccountDto}) related requests
+ * 
+ * @author ABDESSAMIE
+ *
+ */
 @Path("/api/v1/accounts")
 public class AccountResource {
-
+	@Inject
 	private AccountService accountservice;
 
-	public AccountResource() throws IOException {
-		this.accountservice = new AccountServiceImpl();
-	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<AccountDto> findAccounts() throws SQLException {
+	public List<AccountDto> findAccounts() {
 		return accountservice.findAll();
 	}
 
@@ -40,10 +41,10 @@ public class AccountResource {
 	@Path("/{accountId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public AccountDto findAccountById(@PathParam("accountId") int accountId) {
-		return accountservice.findById(accountId);
+		return accountservice.findAccountById(accountId);
 	}
 
-	@GET
+	@PUT
 	@Path("/{accountId}/deposit/{amount}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public AccountDto deposit(@PathParam("accountId") int accountId, @PathParam("amount") double amount) {

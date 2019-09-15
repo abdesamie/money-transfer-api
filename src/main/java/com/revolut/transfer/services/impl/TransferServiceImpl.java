@@ -1,16 +1,14 @@
 package com.revolut.transfer.services.impl;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response.Status;
 
 import com.revolut.transfer.dao.AccountRepository;
 import com.revolut.transfer.dao.TransferRepository;
-import com.revolut.transfer.dao.impl.AccountRepositoryImpl;
-import com.revolut.transfer.dao.impl.TransferRepositoryImpl;
 import com.revolut.transfer.exceptions.BusinessException;
 import com.revolut.transfer.model.AccountDto;
 import com.revolut.transfer.model.TransferDto;
@@ -18,13 +16,10 @@ import com.revolut.transfer.services.TransferService;
 
 public class TransferServiceImpl implements TransferService {
 
+	@Inject
 	private TransferRepository transferRepository;
+	@Inject
 	private AccountRepository accountRepository;
-
-	public TransferServiceImpl() throws IOException {
-		this.transferRepository = new TransferRepositoryImpl();
-		this.accountRepository = new AccountRepositoryImpl();
-	}
 
 	@Override
 	public List<TransferDto> findAll() {
@@ -71,11 +66,11 @@ public class TransferServiceImpl implements TransferService {
 			throw new BusinessException("Insufficient Funds", Status.NOT_ACCEPTABLE);
 	}
 
-	private AccountDto getAccountOrThrowException(int idSender, String message) {
-		AccountDto senderAccount = accountRepository.findById(idSender);
-		if (senderAccount == null)
+	private AccountDto getAccountOrThrowException(int idAccount, String message) {
+		AccountDto account = accountRepository.findById(idAccount);
+		if (account == null)
 			throw new BusinessException(message, Status.NOT_FOUND);
-		return senderAccount;
+		return account;
 	}
 
 }

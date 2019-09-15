@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Record3;
@@ -26,8 +28,8 @@ public class TransferRepositoryImpl implements TransferRepository {
 	private static final String SENDER = "sender";
 	private DSLContext dslContext;
 
-	public TransferRepositoryImpl() throws IOException {
-		DataSource dataSource = DataSource.getInstance();
+	@Inject
+	public TransferRepositoryImpl(DataSource dataSource) throws IOException {
 		dslContext = DSL.using(dataSource.getConnection());
 	}
 

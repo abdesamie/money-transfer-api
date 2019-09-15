@@ -1,14 +1,13 @@
 package com.revolut.transfer.services;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.revolut.transfer.model.AccountDto;
 
 public interface AccountService {
-	List<AccountDto> findAll() throws SQLException;
+	List<AccountDto> findAll();
 
-	AccountDto findById(int idAccount);
+	AccountDto findAccountById(int idAccount);
 
 	void delete(int idClient);
 
@@ -16,5 +15,11 @@ public interface AccountService {
 
 	void update(AccountDto account);
 
-	AccountDto deposit(int idAccount, double amount2);
+	/**
+	 * Deposit an amount on an account
+	 * @param idAccount the account to deposit on
+	 * @param amount the amount
+	 * @return the updated account
+	 */
+	AccountDto deposit(int idAccount, double amount);
 }

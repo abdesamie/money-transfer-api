@@ -1,13 +1,12 @@
 package com.revolut.transfer.services.impl;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response.Status;
 
 import com.revolut.transfer.dao.ClientRepository;
-import com.revolut.transfer.dao.impl.ClientRepositoryImpl;
 import com.revolut.transfer.exceptions.BusinessException;
 import com.revolut.transfer.model.ClientDto;
 import com.revolut.transfer.services.ClientService;
@@ -15,11 +14,9 @@ import com.revolut.transfer.services.ClientService;
 public class ClientServiceImpl implements ClientService {
 
 	private static final String ACCOUNT_NOT_FOUND = "Client not found";
-	private ClientRepository clientRepository;
 
-	public ClientServiceImpl() throws IOException {
-		clientRepository = new ClientRepositoryImpl();
-	}
+	@Inject
+	private ClientRepository clientRepository;
 
 	@Override
 	public ClientDto findById(int id) {
